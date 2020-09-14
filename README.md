@@ -52,8 +52,8 @@ Github提供了一个secret功能，用于存储密钥等敏感信息，请按�
   - `SEP_USER_NAME`: 你的 SEP 用户名(邮箱)
   - `SEP_PASSWD`: 你的 SEP 密码
   - `API_KEY`: 你的通知[server酱](http://sc.ftqq.com/3.version)的api key，填写之后可以在程序完成打卡之后通知到微信，如果不填写不影响使用
+  - `BACK_DATA`: 返京日期，用`2020-09-01`的格式
 - 测试actions是否可以正常工作：编辑本项目内任意文件，推荐修改`README.md`，比如添加一个空行，并提交以触发action运行，提交后的一分钟左右可以在action选项卡中看到运行记录
-
 
 参考截图设定以上三个secrets，`API_KEY`可选。
 ![](setting.png)
@@ -67,6 +67,7 @@ Github提供了一个secret功能，用于存储密钥等敏感信息，请按�
 只接受PR，不接受需求。
 
 # changelog
+- 2020年9月14日 添加返京日期以及其他一些选项的提交
 - 2020年4月15日 添加了随机等待`10-600`秒之后再进行填报
 - 2020年4月15日 添加了`user-agent`
 - 2020年4月15日 更新了README，添加了设定secrets页面的截图

@@ -13,6 +13,7 @@ from datetime import datetime
 user = "USERNAME"  # sep账号
 passwd = "PASSWORD"  # sep密码
 api_key = "API_KEY"  # server酱的api，填了可以微信通知打卡结果，不填没影响
+back_data = "BACK_DATA" # 返京日期
 
 # 开启debug将会输出打卡填报的数据，关闭debug只会输出打卡成功或者失败，如果使用github actions，请务必设置该选项为False
 debug = False
@@ -90,6 +91,10 @@ def submit(s: requests.Session, old: dict):
         'jcjgqk': old['jcjgqk'],
         'jcwhryfs': old['jcwhryfs'],
         'jchbryfs': old['jchbryfs'],
+        'fjsj': back_data,
+        'jrsflj': old['jrsflj'],
+        'jrsfdgzgfxdq': old['jrsfdgzgfxdq'],
+        'gtshcyjkzt': old['gtshcyjkzt'],
         'app_id': 'ucas'}
 
     r = s.post("https://app.ucas.ac.cn/ncov/api/default/save", data=new_daily)
