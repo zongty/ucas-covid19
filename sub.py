@@ -80,7 +80,6 @@ def submit(s: requests.Session, old: dict):
         'old_city': old['old_city'],
         'geo_api_infot': old['geo_api_infot'],
         'date': datetime.now(tz=pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d"),
-        'fjsj': old['fjsj'],
         'jcbhrq': old['jcbhrq'],
         'glksrq': old['glksrq'],
         'fxyy': old['fxyy'],
