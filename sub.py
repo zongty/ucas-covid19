@@ -27,7 +27,7 @@ def login(s: requests.Session, username, password):
         "username": username,
         "password": password
     }
-    r = s.post("https://app.ucas.ac.cn/uc/wap/login/check", data=payload)
+    r = s.post("https://app.ucas.ac.cn/uc/wap/login/check", data=payload, verify=False)
 
     # print(r.text)
     if r.json().get('m') != "操作成功":
@@ -39,7 +39,7 @@ def login(s: requests.Session, username, password):
 
 
 def get_daily(s: requests.Session):
-    daily = s.get("https://app.ucas.ac.cn/ncov/api/default/daily?xgh=0&app_id=ucas")
+    daily = s.get("https://app.ucas.ac.cn/ncov/api/default/daily?xgh=0&app_id=ucas", verify=False)
     # info = s.get("https://app.ucas.ac.cn/ncov/api/default/index?xgh=0&app_id=ucas")
     j = daily.json()
     d = j.get('d', None)
@@ -96,7 +96,7 @@ def submit(s: requests.Session, old: dict):
         'gtshcyjkzt': old['gtshcyjkzt'],
         'app_id': 'ucas'}
 
-    r = s.post("https://app.ucas.ac.cn/ncov/api/default/save", data=new_daily)
+    r = s.post("https://app.ucas.ac.cn/ncov/api/default/save", data=new_daily, verify=False)
 
     if debug:
         from urllib.parse import parse_qs, unquote
