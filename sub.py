@@ -115,7 +115,6 @@ def submit(s: requests.Session, old: dict):
         'jcjgqk': old['jcjgqk'],
         'jcwhryfs': old['jcwhryfs'],
         'jchbryfs': old['jchbryfs'],
-        'fjsj': back_data,
         'jrsflj': old['jrsflj'],
         'jrsfdgzgfxdq': old['jrsfdgzgfxdq'],
         'gtshcyjkzt': old['gtshcyjkzt'],
