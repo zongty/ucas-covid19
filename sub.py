@@ -114,18 +114,11 @@ def submit(s: requests.Session, old: dict):
         'jcjgqk': old['jcjgqk'],
         'jcwhryfs': old['jcwhryfs'],
         'jchbryfs': old['jchbryfs'],
-<<<<<<< HEAD
         'gtshcyjkzt': old['gtshcyjkzt'],  # add @2020.9.16
         'jrsfdgzgfxdq': old['jrsfdgzgfxdq'],  # add @2020.9.16
         'jrsflj': old['jrsflj'],  # add @2020.9.16
         'app_id': 'ucas'
     }
-=======
-        'jrsflj': old['jrsflj'],
-        'jrsfdgzgfxdq': old['jrsfdgzgfxdq'],
-        'gtshcyjkzt': old['gtshcyjkzt'],
-        'app_id': 'ucas'}
->>>>>>> a46102aae995cb91c8f59288508029683d8fe601
 
     if new_daily['szdd'] != '国内':
         msg = "所在地点不是国内，请手动打卡"
