@@ -35,13 +35,12 @@ if os.environ.get('GITHUB_RUN_ID', None):
     user = os.environ['SEP_USER_NAME']  # sep账号
     passwd = os.environ['SEP_PASSWD']  # sep密码
     api_key = os.environ['API_KEY']  # server酱的api，填了可以微信通知打卡结果，不填没影响
-    back_data = os.environ["BACK_DATA"] # 返京日期
 
-    smtp_port = os.environ['SMTP_PORT'] # 邮件服务器端口，默认为qq smtp服务器端口
-    smtp_server = os.environ['SMTP_SERVER'] # 邮件服务器，默认为qq smtp服务器
-    sender_email = os.environ['SENDER_EMAIL'] # 发送通知打卡通知邮件的邮箱
-    sender_email_passwd = os.environ['SENDER_EMAIL_PASSWD'] # 发送通知打卡通知邮件的邮箱密码
-    receiver_email = os.environ['RECEIVER_EMAIL'] # 接收打卡通知邮件的邮箱
+    smtp_port = os.environ['SMTP_PORT']  # 邮件服务器端口，默认为qq smtp服务器端口
+    smtp_server = os.environ['SMTP_SERVER']  # 邮件服务器，默认为qq smtp服务器
+    sender_email = os.environ['SENDER_EMAIL']  # 发送通知打卡通知邮件的邮箱
+    sender_email_passwd = os.environ['SENDER_EMAIL_PASSWD']  # 发送通知打卡通知邮件的邮箱密码
+    receiver_email = os.environ['RECEIVER_EMAIL']  # 接收打卡通知邮件的邮箱
 
 
 def login(s: requests.Session, username, password):
@@ -115,14 +114,21 @@ def submit(s: requests.Session, old: dict):
         'jcjgqk': old['jcjgqk'],
         'jcwhryfs': old['jcwhryfs'],
         'jchbryfs': old['jchbryfs'],
-        'fjsj': back_data,
-        'jrsflj': old['jrsflj'],
-        'jrsfdgzgfxdq': old['jrsfdgzgfxdq'],
-        'gtshcyjkzt': old['gtshcyjkzt'],
-        'app_id': 'ucas'}
+        'gtshcyjkzt': old['gtshcyjkzt'],  # add @2020.9.16
+        'jrsfdgzgfxdq': old['jrsfdgzgfxdq'],  # add @2020.9.16
+        'jrsflj': old['jrsflj'],  # add @2020.9.16
+        'app_id': 'ucas'
+    }
 
-    r = s.post("https://app.ucas.ac.cn/ncov/api/default/save", data=new_daily, verify=False)
+    if new_daily['szdd'] != '国内':
+        msg = "所在地点不是国内，请手动打卡"
+        if api_key != "":
+            message(api_key, msg, new_daily)
+        if sender_email != "" and receiver_email != "":
+            send_email(sender_email, sender_email_passwd, receiver_email, msg, new_daily)
+        return
 
+    r = s.post("https://app.ucas.ac.cn/ncov/api/default/save", data=new_daily)
     if debug:
         from urllib.parse import parse_qs, unquote
         import json
@@ -156,9 +162,9 @@ def send_email(sender, passwd, receiver, subject, msg):
     邮件通知打卡结果
     """
     try:
-        body = MIMEText(str(msg),'plain','utf-8')
-        body['From'] = formataddr(["notifier",sender])
-        body['To'] = formataddr(["me",receiver])
+        body = MIMEText(str(msg), 'plain', 'utf-8')
+        body['From'] = formataddr(["notifier", sender])
+        body['To'] = formataddr(["me", receiver])
         body['Subject'] = "UCAS疫情填报助手通知-" + subject
 
         global smtp_port, smtp_server
