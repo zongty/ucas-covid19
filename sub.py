@@ -201,4 +201,4 @@ def report(username, password):
 
 
 if __name__ == "__main__":
-    report(username=user, password=passwd)
+    report(username="18801279591@163.com" ,password="ZONGtianyu161504")
